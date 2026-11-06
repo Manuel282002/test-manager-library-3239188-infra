@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: manager_library_db
+    environment:
+      POSTGRES_USER: sena_admin
+      POSTGRES_PASSWORD: sena_password_2026
+      POSTGRES_DB: manager_library
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - library_network
+
+networks:
+  library_network:
+    name: library_net
+    driver: bridge
+
+volumes:
+  pgdata:
+    name: library_pg_data
